@@ -1,0 +1,64 @@
+Current node setup draft:
+
+Hot/cold setup
+
+Note - if your vps has less then 2gb of ram you need to configure swap before the compiling:
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+git clone http://
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+On the VPS:
+sudo apt-get update
+sudo apt-get install dh-autoreconf build-essential libtool autotools-dev autoconf automake libssl-dev libboost-all-dev libevent-dev pkg-config 
+bsdmainutils git libminiupnpc-dev libprotobuf-dev protobuf-compiler libqrencode-dev software-properties-common libgmp3-dev git nano
+
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get install libdb4.8-dev libdb4.8++-dev
+
+git clone https://github.com/numuscrypto/numuscore_physcomitrella
+./autogen
+./configure --disable-tests --disable-gui-tests --with-gui=yes --enable-wallet
+make
+
+On your cold wallet (usually Windows):
+in your qt wallet open Tools->Debug console
+put command: masternode genkey
+plus put command: masternode outputs
+save output (first one is your privkey, second one is txhash and txid (number at the end))
+
+On the VPS:
+./numusd 
+(previous command will show message that you need to fill up numus.conf - its ok)
+
+nano ~/.numus/numus.conf
+
+paste this (change ip - ip of vps, and yourkey is privkey): 
+daemon=1
+rpcuser=user
+rpcpassword=password
+rpcallowip=127.0.0.1
+port=28121
+masternode=1
+server=1
+listen=1
+masternodeaddr=ip:28121
+masternodeprivkey=yourkey
+
+./numusd --daemon
+
+On your cold wallet (usually Windows):
+In wallet configuration folder edit file masternode.conf:
+MN1 IP:28121 yourprivkeyoutput yourtxioutput yourtxidoutput
+example: MN1 8.8.8.8:28121 rMTp4V6NpVguYHxJd58KUcM3eiv1SW2sDGdZtiYFSvpV6PSCHV 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 1
+
+go to Tools -> Debug console , and run:
+startmasternode alias false MN1
+
+Where MN1 is alias that you saved in masternode.conf file.
+
+
+Done

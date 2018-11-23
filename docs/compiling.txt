@@ -1,0 +1,21 @@
+Note - if your vps has less then 2gb of ram you need to configure swap before the compiling:
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+git clone http://
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+On the VPS:
+sudo apt-get update
+sudo apt-get install dh-autoreconf build-essential libtool autotools-dev autoconf automake libssl-dev libboost-all-dev libevent-dev pkg-config 
+bsdmainutils git libminiupnpc-dev libprotobuf-dev protobuf-compiler libqrencode-dev software-properties-common libgmp3-dev git nano
+
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get install libdb4.8-dev libdb4.8++-dev
+
+git clone https://github.com/numuscrypto/numuscore_physcomitrella
+./autogen
+./configure --disable-tests --disable-gui-tests --with-gui=yes --enable-wallet
+make

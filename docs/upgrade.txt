@@ -1,0 +1,9 @@
+Most recommended upgrade procedure:
+1)	Save (make a backup) and move your data folder and especially wallet.dat file.
+2)	Delete all data from Numus data folder.
+3)	Copy back wallet.dat to Numus data folder.
+4)	Download updated wallet software.
+5)	Resync your wallet (don’t worry it much faster now).
+6)	After sync will be finished run Tools -> Wallet Repair -> Recover Transaction 1
+7)	Wait for rescan of blockchain
+8)	Done

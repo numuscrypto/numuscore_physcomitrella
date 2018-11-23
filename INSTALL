@@ -1,0 +1,7 @@
+Building NUMUS
+
+Use the autogen script to prepare the build environment.
+
+    ./autogen.sh
+    ./configure --disable-tests --disable-gui-tests --with-gui=yes --enable-wallet
+    make
