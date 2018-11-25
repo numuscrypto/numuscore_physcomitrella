@@ -46,7 +46,7 @@ const std::string CLIENT_NAME("Physcomitrella Release");
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
 #define GIT_COMMIT_ID "Physcomitrella"
-#define GIT_COMMIT_DATE "Sun, 7 Oct 2018 11:52:01 +0100"
+#define GIT_COMMIT_DATE "Sun, 25 Nov 2018 12:04:10 +0100"
 #endif
 
 #define BUILD_DESC_WITH_SUFFIX(maj, min, rev, build, suffix) \

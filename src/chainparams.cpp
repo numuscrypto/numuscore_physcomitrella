@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The ZIVX developers
+// Copyright (c) 2015-2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -62,7 +62,7 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
        ( 500000, uint256("0x000000000010298a75c177d4a7ef0ee942a77614b4c3422045984fa847792eb1") )
        ( 600000, uint256("0x346bdf8f50b82f84b92452fef501bcdc5fa59a487545e21c929c49782fc32b4b") )
        ( 655001, uint256("0x3fbc007597971c6abfc21479ecd92c33c4a1dcbc00e77b60a3752d0ac77ae9d3") )
-       
+       ( 657001, uint256("0x0000000000c00aec518552f226787b04823c9d51d21b3e59c2aaab44529a9200") )
         ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,

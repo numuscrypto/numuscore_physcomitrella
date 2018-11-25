@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2017 The ZIVX developers
+// Copyright (c) 2015-2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -1671,11 +1671,20 @@ int64_t GetBlockValue(int nHeight)
                     else if (nHeight > 655 * 1000 && nHeight <= 657 * 1000) {
                         nSubsidy = 0.5 * COIN;
                     }
-                    else if (nHeight > 657 * 1000 && nHeight <= 660 * 1000) {
+                    else if (nHeight > 657 * 1000 && nHeight <= 657100 ) {
+                        nSubsidy = 0.55 * COIN;
+                    }
+                    else if (nHeight > 657100 && nHeight <= 657500 ) {
+                        nSubsidy = 0.6 * COIN;
+                    }
+                    else if (nHeight > 657500 && nHeight <= 659000 ) {
+                        nSubsidy = 1 * COIN;
+                    }
+                    else if (nHeight > 659 * 1000 && nHeight <= 662 * 1000) {
                         nSubsidy = 70 * COIN;
                     }
-                    else if (nHeight > 660 * 1000 && nHeight <= 670 * 1000) {
-                        nSubsidy = 50 * COIN;
+                    else if (nHeight > 662 * 1000 && nHeight <= 670 * 1000) {
+                        nSubsidy = 60 * COIN;
                     }
                     else if (nHeight > 670 * 1000 && nHeight <= 685 * 1000) {
                         nSubsidy = 40 * COIN;
@@ -1737,6 +1746,7 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
 
 bool IsInitialBlockDownload()
 {
+
     LOCK(cs_main);
     if (fImporting || fReindex || chainActive.Height() < Checkpoints::GetTotalBlocksEstimate())
         return true;
@@ -2268,7 +2278,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
-    CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
+    CAmount nExpectedMint = GetBlockValue(pindex->nHeight);
     if (block.IsProofOfWork())
         nExpectedMint += nFees;
 
@@ -4943,7 +4953,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CBlockLocator locator;
         uint256 hashStop;
         vRecv >> locator >> hashStop;
-
         LOCK(cs_main);
 
         if (IsInitialBlockDownload())
